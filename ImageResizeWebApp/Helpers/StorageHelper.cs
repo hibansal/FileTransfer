@@ -64,7 +64,7 @@ namespace ImageResizeWebApp.Helpers
                     index++;
                     double percentComplete = (double)bytesUploaded / (double)fileSize;
                     Console.WriteLine("Percent complete = " + percentComplete.ToString("P"));
-                    progressCallback(Math.Round(percentComplete) * 100);
+                    progressCallback(percentComplete * 100);
                     manualResetEvent.Set();
                 });
                 manualResetEvent.WaitOne();
