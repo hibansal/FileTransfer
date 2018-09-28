@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 //If you want to only use websockets
-//var transport = signalR.TransportType.WebSockets;
+//var transport = signalR.TransportType.LongPolling;
 
 var connection = new signalR.HubConnectionBuilder()
     .withUrl("/messageHub")
@@ -9,14 +9,21 @@ var connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Information)
     .build();
 
-connection.on("ReceiveMessage", function (user, message) { 
-    var encodedMsg = user + " says " + message;
-    var li = document.createElement("li");
-    var anchor = document.createElement("a");
+connection.on("ReceiveMessage", function (user, message) {    
+    var li = document.createElement("li");      
+    var anchor = document.createElement("a");    
+
     anchor.href = message;
-    anchor.text = message;
+    anchor.text = message;     
+
     li.appendChild(anchor);
     document.getElementById("messageContainer").appendChild(li);
+});
+
+connection.on("ShowProgress", function (progress) {
+    //console.log("Upload " + progress + "% complete!");
+    var progressView = document.getElementById("progressView");
+    progressView.textContent = "Incoming file: " + progress + " %";
 });
 
 connection.on("broadcastMessage", function (user, message) {

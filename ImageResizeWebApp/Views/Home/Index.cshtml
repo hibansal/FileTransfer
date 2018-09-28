@@ -52,10 +52,10 @@
         <h2>Upload files</h2>
         <div>
             <form action="/api/files/upload"
-                    class="dropzone needsclick dz-clickable"
-                    id="image-upload"
-                    method="post"
-                    enctype="multipart/form">
+                  class="dropzone needsclick dz-clickable"
+                  id="image-upload"
+                  method="post"
+                  enctype="multipart/form">
 
                 <div class="dz-message needsclick">
                     <span class="note needsclick">
@@ -64,6 +64,8 @@
                 </div>
             </form>
         </div>
+
+        <p id="progressView"></p>
 
         <ul id="messageContainer"></ul>
     </div>

@@ -57,9 +57,14 @@ namespace ImageResizeWebApp.Controllers
                 {
                     if (formFile.Length > 0)
                     {
+                        Action<Double> progressCallback = delegate (double progress)
+                        {
+                            _hubContext.Clients.All.SendAsync("ShowProgress", progress);
+                        };
+
                         using (Stream stream = formFile.OpenReadStream())
                         {
-                            uploadedUrl = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig);
+                            uploadedUrl = await StorageHelper.UploadFileToStorage(stream, formFile.FileName, storageConfig, progressCallback);
                         }
                     }
                 }
